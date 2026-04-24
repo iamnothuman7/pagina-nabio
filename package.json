@@ -1,0 +1,21 @@
+{
+  "name": "pagina-nabio",
+  "version": "1.0.0",
+  "description": "NABIO startup landing page",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "gsap": "^3.12.0"
+  }
+}
