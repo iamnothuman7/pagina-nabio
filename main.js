@@ -1,110 +1,191 @@
-// Register GSAP Plugins
-gsap.registerPlugin(ScrollTrigger);
+// --- LENIS SMOOTH SCROLL ---
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smoothWheel: true,
+  orientation: 'vertical',
+  gestureOrientation: 'vertical',
+  smoothTouch: false,
+  wheelMultiplier: 1,
+  touchMultiplier: 2,
+  normalizeWheel: true,
+  infinite: false,
+})
 
-// Custom Cursor
-const cursor = document.querySelector('#cursor');
+function raf(time) {
+  lenis.raf(time)
+  requestAnimationFrame(raf)
+}
+
+requestAnimationFrame(raf)
+
+// Connect Lenis to ScrollTrigger
+lenis.on('scroll', ScrollTrigger.update)
+
+gsap.ticker.add((time) => {
+  lenis.raf(time * 1000)
+})
+
+gsap.ticker.lagSmoothing(0)
+
+// --- CUSTOM CURSOR ---
+const cursor = document.getElementById('cursor');
+const dot = document.querySelector('.cursor-dot');
+const circle = document.querySelector('.cursor-circle');
+
+let mouseX = 0;
+let mouseY = 0;
+
 document.addEventListener('mousemove', (e) => {
-    gsap.to(cursor, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.1,
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    gsap.to(dot, {
+        x: mouseX,
+        y: mouseY,
+        duration: 0.1
+    });
+
+    gsap.to(circle, {
+        x: mouseX,
+        y: mouseY,
+        duration: 0.3,
         ease: "power2.out"
     });
 });
 
-// Cursor hover effect on interactive elements
-const hoverables = document.querySelectorAll('a, button, .service-card');
-hoverables.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        gsap.to(cursor, { scale: 4, opacity: 0.5 });
+// Cursor Interactions
+const links = document.querySelectorAll('a, button, .bento-item, .magnetic');
+links.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+        gsap.to(circle, {
+            scale: 2,
+            borderColor: 'white',
+            backgroundColor: 'rgba(255,255,255,0.1)',
+            duration: 0.3
+        });
+        gsap.to(dot, { scale: 0, duration: 0.2 });
     });
-    el.addEventListener('mouseleave', () => {
-        gsap.to(cursor, { scale: 1, opacity: 1 });
+    
+    link.addEventListener('mouseleave', () => {
+        gsap.to(circle, {
+            scale: 1,
+            borderColor: 'rgba(255,255,255,0.3)',
+            backgroundColor: 'transparent',
+            duration: 0.3
+        });
+        gsap.to(dot, { scale: 1, duration: 0.2 });
     });
 });
 
-// Hero Text Reveal
-gsap.from(".reveal-text", {
+// --- MAGNETIC BUTTONS ---
+const magneticObjects = document.querySelectorAll('.magnetic');
+magneticObjects.forEach(obj => {
+    obj.addEventListener('mousemove', (e) => {
+        const bound = obj.getBoundingClientRect();
+        const centerX = bound.left + bound.width / 2;
+        const centerY = bound.top + bound.height / 2;
+        const deltaX = e.clientX - centerX;
+        const deltaY = e.clientY - centerY;
+        
+        gsap.to(obj, {
+            x: deltaX * 0.3,
+            y: deltaY * 0.3,
+            duration: 0.5,
+            ease: "power2.out"
+        });
+    });
+    
+    obj.addEventListener('mouseleave', () => {
+        gsap.to(obj, {
+            x: 0,
+            y: 0,
+            duration: 0.5,
+            ease: "elastic.out(1, 0.3)"
+        });
+    });
+});
+
+// --- ENTRANCE ANIMATIONS ---
+
+// Hero Word Animation
+const heroWords = document.querySelectorAll('.hero__title .word');
+gsap.from(heroWords, {
     y: 100,
     opacity: 0,
-    duration: 1.5,
+    duration: 1.2,
+    stagger: 0.1,
     ease: "power4.out",
-    stagger: 0.2
+    delay: 0.5
 });
 
-gsap.from(".fade-in", {
-    opacity: 0,
-    y: 20,
-    duration: 1,
-    delay: 1,
-    ease: "power2.out",
-    stagger: 0.2
-});
-
-// Scroll Reveal Animations
-const sections = document.querySelectorAll('section');
-sections.forEach(section => {
-    const title = section.querySelector('h2.reveal-text');
-    if (title) {
-        gsap.from(title, {
-            scrollTrigger: {
-                trigger: title,
-                start: "top 80%",
-            },
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out"
-        });
-    }
-
-    const cards = section.querySelectorAll('.service-card');
-    if (cards) {
-        gsap.from(cards, {
-            scrollTrigger: {
-                trigger: section,
-                start: "top 60%",
-            },
-            y: 100,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "back.out(1.7)"
-        });
-    }
-});
-
-// Background mesh movement
-document.addEventListener('mousemove', (e) => {
-    const { clientX, clientY } = e;
-    const xPos = (clientX / window.innerWidth - 0.5) * 50;
-    const yPos = (clientY / window.innerHeight - 0.5) * 50;
-
-    gsap.to(".bg-mesh", {
-        x: xPos,
-        y: yPos,
-        duration: 2,
-        ease: "power2.out"
+// Fade Up Animations
+const fadeUpElements = document.querySelectorAll('.fade-up');
+fadeUpElements.forEach(el => {
+    gsap.to(el, {
+        scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+        },
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out"
     });
 });
 
-// Logo animation on scroll
-gsap.to("#nabio-logo", {
+// Bento Items Stagger
+gsap.to(".bento-item", {
     scrollTrigger: {
-        trigger: "body",
-        start: "top top",
+        trigger: ".bento-grid",
+        start: "top 80%",
+    },
+    opacity: 1,
+    y: 0,
+    stagger: 0.1,
+    duration: 1,
+    ease: "power3.out"
+});
+
+// Header Shrink on Scroll
+ScrollTrigger.create({
+    start: "top top",
+    onUpdate: (self) => {
+        if (self.direction === 1) {
+            gsap.to(".header", { height: 70, backgroundColor: 'rgba(255, 117, 31, 0.9)', duration: 0.3 });
+        } else {
+            gsap.to(".header", { height: 90, backgroundColor: 'rgba(255, 117, 31, 0.4)', duration: 0.3 });
+        }
+    }
+});
+
+// Reveal Text Scrubbing (Scroll-driven reveal)
+const revealTexts = document.querySelectorAll('.reveal-text');
+revealTexts.forEach(text => {
+    gsap.from(text, {
+        scrollTrigger: {
+            trigger: text,
+            start: "top 90%",
+            end: "top 60%",
+            scrub: 1
+        },
+        opacity: 0,
+        x: -50,
+        duration: 1
+    });
+});
+
+// Statement Parallax/Scale
+gsap.from(".statement__text", {
+    scrollTrigger: {
+        trigger: ".statement",
+        start: "top bottom",
         end: "bottom top",
         scrub: true
     },
-    rotation: 360,
-    scale: 0.8
+    opacity: 0.3,
+    scale: 0.8,
+    y: 100
 });
 
-// Button pulse animation
-gsap.to(".btn-cta", {
-    scale: 1.1,
-    duration: 0.8,
-    repeat: -1,
-    yoyo: true,
-    ease: "sine.inOut"
-});
+console.log("NABIO Premium Engine Loaded.");

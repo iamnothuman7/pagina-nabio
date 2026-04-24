@@ -3,82 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NABIO | Sites e Sistemas Personalizados</title>
+    <title>NABIO | Inovação em Cada Pixel</title>
     <link rel="stylesheet" href="style.css">
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1/bundled/lenis.min.js"></script>
 </head>
 <body>
-    <div id="cursor"></div>
-    <div class="bg-mesh"></div>
+    <div id="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-circle"></div>
+    </div>
+    
+    <div class="bg-noise"></div>
+    <div class="bg-gradient"></div>
 
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <img src="logo-nbio.png" alt="NABIO LOGO" id="nabio-logo">
-            </div>
-            <nav>
-                <a href="#services">Serviços</a>
-                <a href="#about">Sobre</a>
-                <a href="#contact" class="btn-cta">Vem de NABIO</a>
+    <header class="header">
+        <div class="container header__wrapper">
+            <a href="#" class="logo-link">
+                <img src="logo-nbio.png" alt="NABIO" class="logo-img">
+            </a>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="#services" class="nav__link">Serviços</a></li>
+                    <li><a href="#work" class="nav__link">Nosso Fluxo</a></li>
+                    <li><a href="#contact" class="nav__link btn-outline">Projetar agora</a></li>
+                </ul>
             </nav>
         </div>
     </header>
 
-    <main>
-        <section id="hero">
-            <div class="container hero-content">
-                <h1 class="reveal-text">Fora da Caixa.</h1>
-                <p class="fade-in">Sistemas e sites que não apenas funcionam. Eles impactam.</p>
-                <div class="hero-actions fade-in">
-                    <a href="#contact" class="btn-primary">Transformar meu Negócio</a>
+    <main class="smooth-content">
+        <!-- HERO SECTION -->
+        <section id="home" class="hero">
+            <div class="container hero__container">
+                <div class="hero__content">
+                    <span class="hero__tag fade-up">Startup de Software & Design</span>
+                    <h1 class="hero__title">
+                        <span class="line"><span class="word">Criamos</span> <span class="word">o</span></span>
+                        <span class="line"><span class="word">que</span> <span class="word">ainda</span></span>
+                        <span class="line highlight"><span class="word">não</span> <span class="word">existe.</span></span>
+                    </h1>
+                    <p class="hero__desc fade-up">Sistemas sob medida e sites de alto impacto com o padrão de qualidade que seu negócio merece.</p>
+                    <div class="hero__actions fade-up">
+                        <a href="#contact" class="btn-primary magnetic">Iniciar Projeto</a>
+                        <a href="#services" class="btn-secondary">Explorar Serviços</a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="services">
+        <!-- SERVICES BENTO GRID -->
+        <section id="services" class="section">
             <div class="container">
-                <h2 class="reveal-text">O que criamos?</h2>
-                <div class="services-grid">
-                    <div class="service-card" data-tilt>
-                        <h3>Mundo Web</h3>
-                        <p>Sites institucionais e landing pages de conversão agressiva.</p>
+                <div class="section-header">
+                    <h2 class="section-title reveal-text">O que construímos?</h2>
+                </div>
+                <div class="bento-grid">
+                    <div class="bento-item bento-item--large fade-up">
+                        <div class="bento-content">
+                            <h3>Sistemas Corporativos</h3>
+                            <p>ERP, CRM e Dashboards que transformam dados em decisões.</p>
+                        </div>
+                        <div class="bento-visual tech-stack"></div>
                     </div>
-                    <div class="service-card" data-tilt>
-                        <h3>Sistemas Custom</h3>
-                        <p>Sistemas internos, ERPs e soluções sob medida para sua dor.</p>
+                    <div class="bento-item fade-up">
+                        <div class="bento-content">
+                            <h3>Sites Imersivos</h3>
+                            <p>UX/UI de próxima geração para prender seu cliente no primeiro frame.</p>
+                        </div>
                     </div>
-                    <div class="service-card" data-tilt>
-                        <h3>Apps & Mobile</h3>
-                        <p>Presença no bolso do seu cliente com UX de alto nível.</p>
+                    <div class="bento-item fade-up">
+                        <div class="bento-content">
+                            <h3>Apps Mobile</h3>
+                            <p>Nativo ou Híbrido. Performance extrema na palma da mão.</p>
+                        </div>
+                    </div>
+                    <div class="bento-item bento-item--medium fade-up">
+                        <div class="bento-content">
+                            <h3>E-commerce de Luxo</h3>
+                            <p>Plataformas que vendem sozinhas com fluxos otimizados.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact">
-            <div class="container contact-content">
-                <h2 class="reveal-text">Bora voar?</h2>
-                <p>O próximo nível do seu sistema começa aqui.</p>
-                <form id="contact-form">
-                    <div class="form-group">
-                        <input type="text" placeholder="Nome" required>
+        <!-- STATEMENT SECTION -->
+        <section class="statement section">
+            <div class="container">
+                <h2 class="statement__text">
+                    NÃO ENTREGAMOS APENAS <span class="h-orange">CÓDIGO</span>. <br>
+                    ENTREGAMOS <span class="h-orange">PODER</span> COMPETITIVO.
+                </h2>
+            </div>
+        </section>
+
+        <!-- WORK FLOW -->
+        <section id="work" class="section work-flow">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title reveal-text">Padrão NABIO</h2>
+                </div>
+                <div class="steps">
+                    <div class="step fade-up">
+                        <span class="step__num">01</span>
+                        <h4>Discovery</h4>
+                        <p>Entendemos sua dor e mapeamos a melhor solução tecnológica.</p>
                     </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="E-mail" required>
+                    <div class="step fade-up">
+                        <span class="step__num">02</span>
+                        <h4>Design</h4>
+                        <p>Protótipos interativos que parecem o produto final.</p>
                     </div>
-                    <button type="submit" class="btn-submit">Enviar sinal de fumaça</button>
-                </form>
+                    <div class="step fade-up">
+                        <span class="step__num">03</span>
+                        <h4>Build</h4>
+                        <p>Desenvolvimento ágil com código limpo e escalável.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="contact section">
+            <div class="container">
+                <div class="contact__card fade-up">
+                    <div class="contact__info">
+                        <h2>Pronto para ser extraordinário?</h2>
+                        <p>Seu sistema personalizado está a um clique de distância.</p>
+                        <a href="https://wa.me/seunumeroaqui" class="btn-whatsapp magnetic">Chamar no WhatsApp</a>
+                    </div>
+                    <div class="contact__form-wrap">
+                        <form id="contact-form" class="form">
+                            <input type="text" placeholder="Nome da sua empresa" required>
+                            <input type="email" placeholder="E-mail profissional" required>
+                            <textarea placeholder="Fale um pouco sobre o seu desafio..." rows="4"></textarea>
+                            <button type="submit" class="btn-submit">Enviar Proposta</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 NABIO. Construindo o futuro, um código por vez.</p>
+            <div class="footer__bottom">
+                <p>&copy; 2024 NABIO STUDIO. Todos os direitos reservados.</p>
+                <div class="footer__socials">
+                    <a href="#">Instagram</a>
+                    <a href="#">LinkedIn</a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="main.js" type="module"></script>
 </body>
 </html>
