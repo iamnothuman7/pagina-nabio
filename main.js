@@ -22,6 +22,19 @@ requestAnimationFrame(raf)
 // Connect Lenis to ScrollTrigger
 lenis.on('scroll', ScrollTrigger.update)
 
+// Progress Bar Animation
+gsap.to(".progress-bar", {
+    scaleX: 1,
+    transformOrigin: "left",
+    ease: "none",
+    scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.3
+    }
+});
+
 gsap.ticker.add((time) => {
   lenis.raf(time * 1000)
 })

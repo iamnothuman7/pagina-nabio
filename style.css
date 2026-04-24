@@ -11,6 +11,18 @@
     --ease-apple: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
+/* SCROLL PROGRESS BAR */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: white;
+    z-index: 10001;
+    pointer-events: none;
+}
+
 /* CUSTOM SCROLLBAR - Minimalist Chrome/Safari/Edge */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
@@ -188,7 +200,18 @@ body {
 
 .hero__title .word { display: inline-block; }
 
-.hero__title .highlight { color: white; }
+.hero__title .highlight { 
+    background: linear-gradient(90deg, #ffffff, #ffccaa, #ffffff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientText 3s linear infinite;
+}
+
+@keyframes gradientText {
+    to { background-position: 200% center; }
+}
 
 .hero__desc {
     max-width: 550px;
@@ -346,6 +369,16 @@ body {
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
+}
+
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: var(--primary);
+    z-index: 9999;
+    width: 0%;
 }
 
 /* FOOTER */
