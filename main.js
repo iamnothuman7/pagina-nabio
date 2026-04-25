@@ -170,8 +170,8 @@ ScrollTrigger.create({
     }
 });
 
-// Reveal Text Scrubbing (Scroll-driven reveal)
-const revealTexts = document.querySelectorAll('.reveal-text');
+// Reveal Text Scrubbing (Scroll-driven reveal) - Excluding Hero
+const revealTexts = document.querySelectorAll('.reveal-text:not(.hero__title)');
 revealTexts.forEach(text => {
     gsap.from(text, {
         scrollTrigger: {
