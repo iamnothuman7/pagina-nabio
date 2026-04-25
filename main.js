@@ -224,3 +224,6 @@ stats.forEach(stat => {
         }
     });
 });
+
+// --- INITIALIZE LUCIDE ICONS ---
+lucide.createIcons();
