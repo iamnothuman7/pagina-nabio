@@ -121,15 +121,13 @@ magneticObjects.forEach(obj => {
 
 // --- ENTRANCE ANIMATIONS ---
 
-// Hero Word Animation
-const heroWords = document.querySelectorAll('.hero__title .word');
-gsap.from(heroWords, {
-    y: 100,
+// Entrance Reveal
+gsap.from(".hero__title", {
+    y: 50,
     opacity: 0,
     duration: 1.2,
-    stagger: 0.1,
     ease: "power4.out",
-    delay: 0.5
+    delay: 0.3
 });
 
 // Fade Up Animations
@@ -202,3 +200,27 @@ gsap.from(".statement__text", {
 });
 
 console.log("NABIO Premium Engine Loaded.");
+
+// --- COUNTER ANIMATION ---
+const stats = document.querySelectorAll('.stat-num');
+stats.forEach(stat => {
+    const target = +stat.getAttribute('data-val');
+    ScrollTrigger.create({
+        trigger: stat,
+        start: "top 90%",
+        onEnter: () => {
+            let count = 0;
+            const updateCount = () => {
+                const speed = target / 50;
+                if (count < target) {
+                    count += speed;
+                    stat.innerText = Math.floor(count);
+                    setTimeout(updateCount, 20);
+                } else {
+                    stat.innerText = target;
+                }
+            };
+            updateCount();
+        }
+    });
+});
